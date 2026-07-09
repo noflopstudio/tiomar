@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import ClientOrders from "./pages/Orders";
 import LivreurLogin from "./pages/LivreurLogin";
 import LivreurDashboard from "./pages/LivreurDashboard";
+import About from "./pages/About";
 
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -49,7 +50,7 @@ function App() {
                 <Route path="/admin/orders" element={<Orders />} />
                 <Route path="/admin/stock" element={<Stock />} />
                 <Route path="/admin/drivers" element={<Drivers />} />
-
+                <Route path="/about" element={<About />} />
                 {/* 404 - Design épuré */}
                 <Route path="*" element={<NotFound />} />
             </Routes>

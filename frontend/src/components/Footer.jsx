@@ -13,22 +13,25 @@ export default function Footer() {
                 {/* LOGO */}
                 <div style={styles.column}>
 
-                    <h2 style={styles.logo}>
-                        <span style={styles.yellow}>
-                            TIO
-                        </span>
-
-                        <span style={styles.white}>
-                            MAR
-                        </span>
-                    </h2>
+                    <img
+                        src="/logo.png"
+                        alt="TIOMAR"
+                        style={styles.logo}
+                    />
 
 
                     <p style={styles.text}>
                         TIOMAR Multiples Services,
                         votre partenaire de confiance
                         pour vos produits de quincaillerie,
-                        matériaux et projets en Côte d'Ivoire 🇨🇮.
+                        matériaux de construction et solutions
+                        adaptées à vos projets en Côte d'Ivoire 🇨🇮.
+                        <br /><br />
+                        Nous accompagnons particuliers,
+                        professionnels et entreprises avec des
+                        services de qualité, une approche innovante
+                        et un engagement constant pour la satisfaction
+                        de nos clients.
                     </p>
 
                 </div>
@@ -65,6 +68,12 @@ export default function Footer() {
                         📋 Mes commandes
                     </Link>
 
+                    <Link
+                        to="/about"
+                        style={styles.link}
+                    >
+                        ℹ️ À propos
+                    </Link>
                 </div>
 
 
@@ -182,6 +191,13 @@ const styles = {
         textAlign: "center",
         borderTop: "1px solid rgba(255,255,255,0.2)",
         fontSize: "13px"
-    }
+    },
+
+    logo: {
+        width: "40px",
+        height: "auto",
+        objectFit: "contain",
+        transform: "translateY(-5px)"
+    },
 
 };

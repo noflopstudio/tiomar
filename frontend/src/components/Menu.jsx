@@ -57,8 +57,15 @@ export default function Menu() {
         window.location.reload();
 
     };
+    const handleHover = (e) => {
+        e.currentTarget.style.background = "#f8fafc";
+        e.currentTarget.style.color = "#0B5ED7";
+    };
 
-
+    const handleLeave = (e) => {
+        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.color = "#475569";
+    };
 
     return (
 
@@ -78,10 +85,9 @@ export default function Menu() {
                     <div style={styles.menu}>
 
 
-                        <h2>
+                        <h2 style={styles.titleLogo}>
                             🏪 TIOMAR
                         </h2>
-
 
 
                         {/* CLIENT */}
@@ -155,6 +161,16 @@ export default function Menu() {
                                     <Link
                                         to="/admin/products"
                                         style={styles.link}
+
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = "#f8fafc";
+                                            e.currentTarget.style.color = "#0B5ED7";
+                                        }}
+
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = "transparent";
+                                            e.currentTarget.style.color = "#475569";
+                                        }}
                                     >
                                         📦 Produits
                                     </Link>
@@ -198,7 +214,6 @@ export default function Menu() {
                                         🚚 Livraison
                                     </h3>
 
-
                                     <Link
                                         to="/livreur"
                                         style={styles.link}
@@ -237,7 +252,6 @@ export default function Menu() {
 
 }
 
-
 const styles = {
     button: {
         position: "fixed",
@@ -259,40 +273,58 @@ const styles = {
         width: "280px",
         height: "100vh",
         background: "#ffffff",
-        padding: "80px 30px 30px",
+        padding: "90px 20px 30px",
         zIndex: 999,
-        boxShadow: "5px 0 25px rgba(0,0,0,0.05)",
+        boxShadow: "5px 0 25px rgba(0,0,0,0.08)",
         borderRight: "1px solid #f1f5f9",
-
         overflowY: "auto",
         overflowX: "hidden",
-        WebkitOverflowScrolling: "touch"
+        WebkitOverflowScrolling: "touch",
+
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px"
     },
 
-    // Liens du menu
     link: {
-        display: "block",
-        padding: "15px 20px",
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+
+        padding: "14px 18px",
         textDecoration: "none",
-        color: "#475569", // Gris moderne, pas de noir agressif
+        color: "#475569",
         fontSize: "15px",
         fontWeight: "500",
-        borderRadius: "12px",
-        transition: "all 0.3s ease" // Animation fluide au survol
+
+        borderRadius: "14px",
+        transition: "0.3s",
+        marginBottom: "5px"
     },
 
-    // Bouton Déconnexion
     logout: {
-        marginTop: "40px",
-        padding: "12px 20px",
+        marginTop: "30px",
+        padding: "14px",
         width: "100%",
-        background: "#fee2e2", // Rouge très clair
+        background: "#fee2e2",
         color: "#dc2626",
         border: "none",
-        borderRadius: "12px",
+        borderRadius: "14px",
         fontSize: "14px",
         fontWeight: "600",
-        cursor: "pointer",
-        transition: "background 0.3s"
-    }
+        cursor: "pointer"
+    },
+
+    linkHover: {
+        background: "#f8fafc",
+        color: "#0B5ED7"
+    },
+
+    titleLogo: {
+        color: "#D4A017",
+        textAlign: "center",
+        fontSize: "24px",
+        fontWeight: "700",
+        marginBottom: "30px"
+    },
 };

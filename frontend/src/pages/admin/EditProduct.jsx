@@ -100,6 +100,9 @@ export default function EditProduct() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log("ID PRODUIT :", id);
+        console.log("FORMULAIRE :", form);
+
         const { data: sessionData } = await supabase.auth.getSession();
 
         console.log("SESSION :", sessionData.session);
