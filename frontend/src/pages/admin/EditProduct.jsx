@@ -113,7 +113,7 @@ export default function EditProduct() {
                 price: Number(form.price),
                 image: form.image,
                 stock: Number(form.stock),
-                category_id: form.category_id
+
             })
             .eq("id", id)
             .select();
