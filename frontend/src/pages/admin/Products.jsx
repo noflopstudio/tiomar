@@ -21,19 +21,35 @@ export default function Products() {
         fetchProducts();
     }, []);
     const deleteProduct = async (id) => {
+
         const confirmDelete = window.confirm(
             "Supprimer ce produit ?"
         );
-        if (!confirmDelete) return;
-        const { error } = await supabase
-            .from("products")
 
+        if (!confirmDelete) return;
+
+        console.log("ID suppression :", id);
+
+        const { data, error } = await supabase
+            .from("products")
             .delete()
-            .eq("id", id);
-        if (!error) {
-            fetchProducts();
+            .eq("id", id)
+            .select();
+
+        console.log("DELETE DATA :", data);
+        console.log("DELETE ERROR :", error);
+
+        if (error) {
+            console.log(error);
+            alert(error.message);
+            return;
         }
+
+        alert("Produit supprimé ✅");
+
+        fetchProducts();
     };
+
     return (
         <div style={styles.container}>
             <h1 style={styles.title}>
