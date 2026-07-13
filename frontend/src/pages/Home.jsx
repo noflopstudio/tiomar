@@ -167,7 +167,7 @@ const styles = {
 
     hero: {
         background:
-            "linear-gradient(135deg, #0B3D91 0%, #082c6b 70%, #D4A017 140%)",
+            "linear-gradient(135deg, #0B3D91 0%, #082c6b 70%, #082c6b 140%)",
         color: "#fff",
         padding: "45px 25px",
         borderRadius: "0 0 30px 30px",
