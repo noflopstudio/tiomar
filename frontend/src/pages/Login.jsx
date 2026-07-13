@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { supabase } from "../services/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
 
     const inscription = async () => {
 
@@ -54,7 +57,12 @@ export default function Login() {
 
     return (
         <div style={styles.container}>
-
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
             <h1>
                 Connexion TIOMAR
             </h1>
@@ -167,6 +175,18 @@ const styles = {
         transform: "translateY(-50%)",
         cursor: "pointer",
         fontSize: "20px"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
 
 };

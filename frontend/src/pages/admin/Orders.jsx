@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../services/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function Orders() {
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [drivers, setDrivers] = useState([]);
+
+    const navigate = useNavigate();
     const fetchOrders = async () => {
 
         const { data, error } = await supabase
@@ -137,6 +140,14 @@ export default function Orders() {
     return (
         <div style={styles.container}>
             <h1 style={styles.title}>
+
+                <button
+                    style={styles.back}
+                    onClick={() => navigate("/admin")}
+                >
+                    ← Retour
+                </button>
+
                 📦 Gestion des commandes
             </h1>
             {
@@ -407,5 +418,17 @@ const styles = {
     cardHover: {
         transform: "translateY(-8px)",
         boxShadow: "0 25px 30px rgba(0,0,0,0.1)"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
 };

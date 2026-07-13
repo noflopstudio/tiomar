@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
 
 export default function Orders() {
     const [orders, setOrders] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadOrders();
@@ -19,6 +21,14 @@ export default function Orders() {
 
     return (
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
+
             <h1 style={styles.title}>📋 Mes commandes</h1>
 
             {orders.length === 0 ? (
@@ -128,5 +138,18 @@ const styles = {
         fontWeight: "800",
         color: "#0B3D91"
     },
-    empty: { textAlign: "center", color: "#94A3B8", marginTop: "50px" }
+    empty: { textAlign: "center", color: "#94A3B8", marginTop: "50px" },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
+
 };

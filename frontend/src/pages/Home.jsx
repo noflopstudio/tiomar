@@ -79,11 +79,12 @@ export default function Home() {
                         Bienvenue chez TIOMAR
                     </h1>
                     <p style={styles.heroText}>
-                        Trouvez vos produits de quincaillerie
-                        et matériaux de qualité.
-                        TIOMAR vous accompagne aussi dans
-                        vos projets de construction,
-                        d’aménagement et de design en Côte d’Ivoire.
+                        Ne perdez plus de temps à chercher vos matériels partout. Chez TIOMAR, trouvez des équipements et des outillages de qualité pour tous vos travaux 🚧.
+
+                        Votre partenaire de confiance pour tous vos chantiers.
+
+                        📍 Bouaflé, Rue CIE, en face de TAREG.
+
                     </p>
                 </section>
                 {/* RECHERCHE */}

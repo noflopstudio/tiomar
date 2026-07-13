@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../services/supabase";
 
 export default function Drivers() {
@@ -7,6 +8,7 @@ export default function Drivers() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchDrivers = async () => {
         const { data, error } = await supabase
@@ -72,6 +74,14 @@ export default function Drivers() {
 
         <div style={styles.container}>
             <h1 style={styles.title}>
+
+                <button
+                    style={styles.back}
+                    onClick={() => navigate("/admin")}
+                >
+                    ← Retour
+                </button>
+
                 🚚 Gestion des livreurs
             </h1>
             <form
@@ -143,8 +153,9 @@ const styles = {
         fontFamily: "'Inter', sans-serif"
     },
     title: {
-        color: "#064e3b", // Un vert émeraude plus profond et chic
+        color: "#0B3D91",
         fontSize: "2rem",
+        fontWeight: "800",
         marginBottom: "40px",
         textAlign: "center"
     },
@@ -201,5 +212,17 @@ const styles = {
         fontWeight: "600",
         cursor: "pointer",
         transition: "background 0.3s"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
 };

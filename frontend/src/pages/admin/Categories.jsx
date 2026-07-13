@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../services/supabase";
-
+import { useNavigate } from "react-router-dom";
 export default function Categories() {
+
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
+    const navigate = useNavigate();
 
     const [image, setImage] = useState("");
     const fetchCategories = async () => {
@@ -88,9 +90,18 @@ export default function Categories() {
     };
     return (
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
+
             <h1 style={styles.title}>
                 📂 Catégories TIOMAR
             </h1>
+
             <form
                 onSubmit={addCategory}
                 style={styles.form}
@@ -101,18 +112,21 @@ export default function Categories() {
                     onChange={(e) => setName(e.target.value)}
                     style={styles.input}
                 />
+
                 <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => setImage(e.target.files[0])}
                     style={styles.input}
                 />
+
                 <button
                     style={styles.button}
                 >
                     ➕ Ajouter catégorie
                 </button>
             </form>
+
             <div style={styles.grid}>
                 {
                     categories.map((cat) => (
@@ -127,9 +141,11 @@ export default function Categories() {
                                 }
                                 style={styles.image}
                             />
+
                             <h3>
                                 {cat.name}
                             </h3>
+
                             <button
                                 onClick={() =>
                                     deleteCategory(cat.id)
@@ -142,9 +158,9 @@ export default function Categories() {
                     ))
                 }
             </div>
+
         </div>
     );
-
 }
 const styles = {
 
@@ -252,6 +268,18 @@ const styles = {
         fontSize: "13px",
         fontWeight: "600",
         cursor: "pointer"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
 
 };

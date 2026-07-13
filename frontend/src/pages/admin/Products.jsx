@@ -25,7 +25,6 @@ export default function Products() {
         const confirmDelete = window.confirm(
             "Supprimer ce produit ?"
         );
-
         if (!confirmDelete) return;
 
         console.log("ID suppression :", id);
@@ -38,13 +37,11 @@ export default function Products() {
 
         console.log("DELETE DATA :", data);
         console.log("DELETE ERROR :", error);
-
         if (error) {
             console.log(error);
             alert(error.message);
             return;
         }
-
         alert("Produit supprimé ✅");
 
         fetchProducts();
@@ -52,78 +49,80 @@ export default function Products() {
 
     return (
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
+
             <h1 style={styles.title}>
                 📦 Produits TIOMAR
             </h1>
+
             <button
-
                 style={styles.add}
-
                 onClick={() =>
                     navigate("/admin/products/add")
                 }
-
             >
                 ➕ Ajouter produit
-
             </button>
-            {
-                loading ?
 
-                    (
-                        <p>
-                            Chargement...
-                        </p>
-                    )
-                    :
-                    (
-                        <div style={styles.grid}>
-                            {
-                                products.map((product) => (
-                                    <div
-                                        key={product.id}
-                                        style={styles.card}
+            {
+                loading ? (
+                    <p>Chargement...</p>
+                ) : (
+                    <div style={styles.grid}>
+                        {
+                            products.map((product) => (
+                                <div
+                                    key={product.id}
+                                    style={styles.card}
+                                >
+                                    <img
+                                        src={
+                                            product.image ||
+                                            "https://via.placeholder.com/200"
+                                        }
+                                        style={styles.image}
+                                    />
+
+                                    <h3>{product.name}</h3>
+
+                                    <p>
+                                        {product.price} FCFA
+                                    </p>
+
+                                    <p>
+                                        Stock : {product.stock}
+                                    </p>
+
+                                    <button
+                                        style={styles.edit}
+                                        onClick={() =>
+                                            navigate(
+                                                `/admin/products/edit/${product.id}`
+                                            )
+                                        }
                                     >
-                                        <img
-                                            src={
-                                                product.image ||
-                                                "https://via.placeholder.com/200"
-                                            }
-                                            style={styles.image}
-                                        />
-                                        <h3>
-                                            {product.name}
-                                        </h3>
-                                        <p>
-                                            {product.price} FCFA
-                                        </p>
-                                        <p>
-                                            Stock :
-                                            {product.stock}
-                                        </p>
-                                        <button
-                                            style={styles.edit}
-                                            onClick={() =>
-                                                navigate(
-                                                    `/admin/products/edit/${product.id}`
-                                                )
-                                            }
-                                        >
-                                            ✏️ Modifier
-                                        </button>
-                                        <button
-                                            style={styles.delete}
-                                            onClick={() =>
-                                                deleteProduct(product.id)
-                                            }
-                                        >
-                                            🗑️ Supprimer
-                                        </button>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    )
+                                        ✏️ Modifier
+                                    </button>
+
+                                    <button
+                                        style={styles.delete}
+                                        onClick={() =>
+                                            deleteProduct(product.id)
+                                        }
+                                    >
+                                        🗑️ Supprimer
+                                    </button>
+                                </div>
+                            ))
+                        }
+                    </div>
+                )
             }
         </div>
     );
@@ -234,6 +233,17 @@ const styles = {
         fontSize: "13px",
         fontWeight: "600",
         cursor: "pointer"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7"
+    },
 
 };

@@ -1,9 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Contact() {
+    const navigate = useNavigate();
+
     return (
         <div style={styles.container}>
+
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
             <div style={styles.header}>
+
                 <h1 style={styles.mainTitle}>À propos de TIOMAR</h1>
                 <p style={styles.subtitle}>Votre partenaire de confiance en Côte d'Ivoire</p>
             </div>
@@ -97,5 +110,18 @@ const styles = {
         fontWeight: "700",
         cursor: "pointer",
         transition: "transform 0.2s"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    },
+
 };
