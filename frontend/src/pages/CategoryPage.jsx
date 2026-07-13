@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../services/supabase";
-
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import EmptyState from "../components/EmptyState";
 
 export default function CategoryPage() {
+    const navigate = useNavigate();
+
 
     const { id } = useParams();
 
@@ -86,10 +88,16 @@ export default function CategoryPage() {
 
             <main style={styles.container}>
 
+                <button
+                    style={styles.back}
+                    onClick={() => navigate("/")}
+                >
+                    ← Retour
+                </button>
+
+
                 <h1 style={styles.title}>
-
                     {category?.name || "Catégorie"}
-
                 </h1>
 
                 {
@@ -189,7 +197,18 @@ const styles = {
 
         marginTop: "50px"
 
-    }
+    },
 
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        display: "block",
+    },
 
 };

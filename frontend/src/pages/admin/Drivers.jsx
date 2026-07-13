@@ -73,15 +73,16 @@ export default function Drivers() {
     return (
 
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
+
+
             <h1 style={styles.title}>
-
-                <button
-                    style={styles.back}
-                    onClick={() => navigate("/admin")}
-                >
-                    ← Retour
-                </button>
-
                 🚚 Gestion des livreurs
             </h1>
             <form
@@ -223,6 +224,6 @@ const styles = {
         marginBottom: "20px",
         fontWeight: "600",
         color: "#0B5ED7",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+        display: "block",
     },
 };

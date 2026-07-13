@@ -8,17 +8,24 @@ export default function Contact() {
     return (
         <div style={styles.container}>
 
-
             <button
                 style={styles.back}
-                onClick={() => navigate("/admin")}
+                onClick={() => navigate(-1)}
             >
                 ← Retour
             </button>
+
+
             <div style={styles.header}>
 
-                <h1 style={styles.mainTitle}>À propos de TIOMAR</h1>
-                <p style={styles.subtitle}>Votre partenaire de confiance en Côte d'Ivoire</p>
+                <h1 style={styles.mainTitle}>
+                    À propos de TIOMAR
+                </h1>
+
+                <p style={styles.subtitle}>
+                    Votre partenaire de confiance en Côte d'Ivoire
+                </p>
+
             </div>
 
             <div style={styles.card}>
@@ -121,7 +128,6 @@ const styles = {
         marginBottom: "20px",
         fontWeight: "600",
         color: "#0B5ED7",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+        display: "block",
     },
-
 };
