@@ -9,8 +9,34 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-
+    const [loading, setLoading] = useState(false);
     const inscription = async () => {
+
+        const inscription = async () => {
+
+            if (loading) return;
+
+            setLoading(true);
+
+            // ton code signup ici
+
+
+            setLoading(false);
+
+        };
+
+        <button
+            disabled={loading}
+            style={styles.registerButton}
+            onClick={inscription}
+        >
+            {
+                loading
+                    ? "Création..."
+                    : "✍️ Inscription"
+            }
+        </button>
+
 
         if (!email || !password) {
             alert("Veuillez remplir tous les champs.");
@@ -152,23 +178,38 @@ export default function Login() {
         const user = data.user;
         console.log("USER AUTH :", user);
 
-
         const { data: profile, error: profileError } =
             await supabase
                 .from("profiles")
                 .select("*")
                 .eq("id", user.id)
-                .single();
+                .maybeSingle();
 
 
+
+        console.log(
+            "USER ID :",
+            user.id
+        );
+
+        console.log(
+            "USER EMAIL :",
+            user.email
+        );
 
         console.log(
             "PROFILE :",
             profile
         );
 
+        console.log(
+            "PROFILE ERROR :",
+            profileError
+        );
 
-        if (profileError) {
+
+
+        if (!profile) {
 
             alert(
                 "Profil utilisateur introuvable."
@@ -177,7 +218,6 @@ export default function Login() {
             return;
 
         }
-
 
 
         if (profile.role === "admin") {
