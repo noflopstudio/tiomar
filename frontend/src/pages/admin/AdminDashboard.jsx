@@ -1,114 +1,306 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AdminDashboard() {
+
+
     const navigate = useNavigate();
-    const admin = JSON.parse(
-        localStorage.getItem("tiomar_admin")
-    );
+
+
+    const [admin, setAdmin] = useState(null);
+
+
+
+    useEffect(() => {
+
+
+        const checkAdmin = () => {
+
+
+            const data =
+                JSON.parse(
+                    localStorage.getItem(
+                        "tiomar_admin"
+                    )
+                );
+
+
+
+            if (!data) {
+
+                navigate("/login");
+                return;
+
+            }
+
+
+
+            if (data.role !== "admin") {
+
+
+                alert(
+                    "Accès refusé 🚫"
+                );
+
+
+                navigate("/");
+
+
+                return;
+
+            }
+
+
+
+            setAdmin(data);
+
+
+        };
+
+
+
+        checkAdmin();
+
+
+
+    }, [navigate]);
+
+
+
+
+    if (!admin) {
+
+
+        return (
+
+            <h2>
+                Vérification accès...
+            </h2>
+
+        );
+
+    }
+
+
+
+
+
     return (
+
         <div style={styles.container}>
+
+
             <h1 style={styles.title}>
+
                 🏪 TIOMAR ADMIN
+
             </h1>
+
+
+
             <p style={styles.welcome}>
-                Bienvenue {admin?.email}
+
+                Bienvenue {admin.email}
+
             </p>
 
+
+
+
             <button
-                onClick={() => navigate("/")}
+
+                onClick={() =>
+                    navigate("/")
+                }
+
                 style={styles.shopButton}
+
             >
+
                 🏪 Voir la boutique
+
             </button>
+
+
+
+
+
             <div style={styles.grid}>
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/products")}
+
+                    onClick={() =>
+                        navigate("/admin/products")
+                    }
+
                 >
+
                     📦
+
                     <h3>
                         Produits
                     </h3>
+
                     <p>
                         Ajouter et modifier les produits
                     </p>
+
                 </div>
+
+
+
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/products/add")}
+
+                    onClick={() =>
+                        navigate("/admin/products/add")
+                    }
+
                 >
+
                     ➕
+
                     <h3>
                         Ajouter produit
                     </h3>
+
                     <p>
                         Publier un nouvel article
                     </p>
 
+
                 </div>
+
+
+
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/categories")}
+
+                    onClick={() =>
+                        navigate("/admin/categories")
+                    }
+
                 >
+
                     📂
+
                     <h3>
                         Catégories
                     </h3>
+
+
                     <p>
                         Gérer les catégories
                     </p>
+
+
                 </div>
+
+
+
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/orders")}
+
+                    onClick={() =>
+                        navigate("/admin/orders")
+                    }
+
                 >
+
                     🛒
 
                     <h3>
                         Commandes
                     </h3>
 
+
                     <p>
                         Voir les commandes clients
                     </p>
 
+
                 </div>
 
 
+
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/drivers")}
+
+                    onClick={() =>
+                        navigate("/admin/drivers")
+                    }
+
                 >
+
                     🚚
 
                     <h3>
                         Livreurs
                     </h3>
 
+
                     <p>
-                        Gérer les livreurs et leurs accès
+                        Gérer les livreurs
                     </p>
+
 
                 </div>
 
 
+
+
+
                 <div
+
                     style={styles.card}
-                    onClick={() => navigate("/admin/stock")}
+
+                    onClick={() =>
+                        navigate("/admin/stock")
+                    }
+
                 >
+
                     📊
+
                     <h3>
                         Stock
                     </h3>
 
+
                     <p>
                         Contrôler les stocks
                     </p>
+
+
                 </div>
+
+
+
+
             </div>
+
+
+
         </div>
+
     );
+
 }
 const styles = {
     container: {

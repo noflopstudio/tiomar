@@ -146,11 +146,7 @@ const styles = {
     },
 
 
-    logo: {
-        fontSize: "28px",
-        fontWeight: "900",
-        marginBottom: "12px"
-    },
+
 
 
     yellow: {
@@ -194,10 +190,12 @@ const styles = {
     },
 
     logo: {
+        fontSize: "28px",
+        fontWeight: "900",
+        marginBottom: "12px",
         width: "40px",
         height: "auto",
         objectFit: "contain",
         transform: "translateY(-5px)"
     },
-
 };

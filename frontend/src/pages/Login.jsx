@@ -3,12 +3,12 @@ import { supabase } from "../services/supabase";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-
 
     const inscription = async () => {
 
@@ -16,107 +16,313 @@ export default function Login() {
             alert("Veuillez remplir tous les champs.");
             return;
         }
-        const { data, error } = await supabase.auth.signUp({
-            email: email.trim(),
-            password
-        });
 
-        console.log("SIGNUP DATA :", data);
-        console.log("SIGNUP ERROR :", error);
 
-        if (error) {
-            alert(error.message);
+        // Vérifier si profil existe déjà
+        const { data: existingProfile } =
+            await supabase
+                .from("profiles")
+                .select("*")
+                .eq("email", email.trim())
+                .maybeSingle();
+
+
+        if (existingProfile) {
+
+            alert(
+                "Ce compte existe déjà. Connectez-vous."
+            );
+
             return;
+
         }
 
-        alert("Compte créé avec succès. Vérifiez votre email.");
+
+
+        const { data, error } =
+            await supabase.auth.signUp({
+
+                email: email.trim(),
+                password
+
+            });
+
+
+
+        console.log(
+            "SIGNUP DATA :",
+            data
+        );
+
+
+        console.log(
+            "SIGNUP ERROR :",
+            error
+        );
+
+
+
+        if (error) {
+
+            alert(error.message);
+            return;
+
+        }
+
+
+
+        if (data.user) {
+
+
+            const { error: profileError } =
+                await supabase
+                    .from("profiles")
+                    .insert([
+                        {
+
+                            id: data.user.id,
+
+                            email: email.trim(),
+
+                            role: "client"
+
+                        }
+                    ]);
+
+
+
+            if (profileError) {
+
+                console.log(
+                    "ERREUR CREATION PROFILE :",
+                    profileError
+                );
+
+                return;
+
+            }
+
+
+        }
+
+
+
+        alert(
+            "Compte créé avec succès ✅"
+        );
+
+
     };
+
+
+
 
 
     const connexion = async () => {
 
+
         if (!email || !password) {
+
             alert("Veuillez remplir tous les champs.");
             return;
+
         }
 
-        const { error } =
+
+
+        const { data, error } =
             await supabase.auth.signInWithPassword({
+
                 email: email.trim(),
                 password
+
             });
 
+
+
         if (error) {
+
             alert(error.message);
             return;
+
         }
 
-        window.location.href = "/";
+
+
+        const user = data.user;
+        console.log("USER AUTH :", user);
+
+
+        const { data: profile, error: profileError } =
+            await supabase
+                .from("profiles")
+                .select("*")
+                .eq("id", user.id)
+                .single();
+
+
+
+        console.log(
+            "PROFILE :",
+            profile
+        );
+
+
+        if (profileError) {
+
+            alert(
+                "Profil utilisateur introuvable."
+            );
+
+            return;
+
+        }
+
+
+
+        if (profile.role === "admin") {
+
+
+            localStorage.setItem(
+                "tiomar_admin",
+                JSON.stringify(profile)
+            );
+
+
+            navigate("/admin");
+
+
+        } else {
+
+
+            localStorage.removeItem(
+                "tiomar_admin"
+            );
+
+
+            navigate("/");
+
+
+        }
+
+
     };
 
 
+
     return (
+
         <div style={styles.container}>
-            <button
-                style={styles.back}
-                onClick={() => navigate("/admin")}
-            >
-                ← Retour
-            </button>
+
+
             <h1>
                 Connexion TIOMAR
             </h1>
 
 
+
             <input
+
                 style={styles.input}
+
                 type="email"
+
                 placeholder="Votre Gmail"
+
                 value={email}
+
                 onChange={(e) =>
                     setEmail(e.target.value)
                 }
+
             />
+
+
+
             <div style={styles.passwordContainer}>
 
+
                 <input
+
                     style={styles.input}
-                    type={showPassword ? "text" : "password"}
+
+                    type={
+                        showPassword
+                            ? "text"
+                            : "password"
+                    }
+
                     placeholder="Mot de passe"
+
                     value={password}
+
                     onChange={(e) =>
                         setPassword(e.target.value)
                     }
+
                 />
+
+
+
                 <span
+
                     style={styles.eye}
+
                     onClick={() =>
-                        setShowPassword(!showPassword)
+                        setShowPassword(
+                            !showPassword
+                        )
                     }
+
                 >
-                    {showPassword ? "🙈" : "👁️"}
+
+                    {
+                        showPassword
+                            ? "🙈"
+                            : "👁️"
+                    }
+
                 </span>
+
 
             </div>
 
 
+
+
             <button
+
                 style={styles.button}
+
                 onClick={connexion}
+
             >
+
                 🔐 Connexion
+
             </button>
+
+
 
 
             <button
+
                 style={styles.registerButton}
+
                 onClick={inscription}
+
             >
+
                 ✍️ Inscription
+
             </button>
+
+
 
         </div>
+
     );
+
 }
 const styles = {
 
