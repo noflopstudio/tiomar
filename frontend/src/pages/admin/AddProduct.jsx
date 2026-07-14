@@ -18,6 +18,7 @@ export default function AddProduct() {
     const [images, setImages] = useState([]);
     const handleImagesChange = (e) => {
         const files = Array.from(e.target.files);
+        const navigate = useNavigate();
         setImages(files);
         console.log(
             "Images sélectionnées :",
@@ -25,6 +26,7 @@ export default function AddProduct() {
         );
     };
     const uploadImages = async () => {
+
         const imageUrls = [];
         for (const image of images) {
 
@@ -100,6 +102,15 @@ export default function AddProduct() {
     };
     return (
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin/products")}
+            >
+                ← Retour
+            </button>
+
+
             <h1 style={styles.title}>
                 ➕ Ajouter un produit TIOMAR
             </h1>
@@ -231,5 +242,17 @@ const styles = {
         borderRadius: "8px",
         fontWeight: "900",
         cursor: "pointer"
-    }
+    },
+
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        display: "block",
+    },
 };

@@ -1,123 +1,66 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../services/supabase";
 
-
 export default function Stock() {
-
-
     const [products, setProducts] = useState([]);
-
     const [loading, setLoading] = useState(true);
-
-
-
-
-
+    const navigate = useNavigate();
     const fetchProducts = async () => {
-
-
         const { data, error } = await supabase
 
             .from("products")
-
             .select("*")
-
             .order("name");
-
-
-
         if (!error) {
-
             setProducts(data || []);
-
         }
-
-
         setLoading(false);
-
-
     };
-
-
-
-
-
 
     useEffect(() => {
 
-
         fetchProducts();
-
-
     }, []);
 
-
-
-
-
-
-
-
-
     const updateStock = async (id, newStock) => {
-
 
         const { error } = await supabase
 
             .from("products")
-
             .update({
-
                 stock: Number(newStock)
 
             })
-
             .eq("id", id);
 
-
-
-
-
         if (!error) {
-
             fetchProducts();
-
         }
-
-
     };
-
-
-
-
-
-
-
-
     return (
 
-
         <div style={styles.container}>
+
+            <button
+                style={styles.back}
+                onClick={() => navigate("/admin")}
+            >
+                ← Retour
+            </button>
 
 
             <h1 style={styles.title}>
                 📊 Gestion du Stock TIOMAR
             </h1>
 
-
-
-
-
             {
-
                 loading ?
 
                     (
-
                         <p>
                             Chargement...
                         </p>
-
                     )
 
                     :
@@ -125,16 +68,10 @@ export default function Stock() {
                     (
 
                         <div style={styles.table}>
-
-
                             <div style={styles.header}>
-
-
                                 <span>
                                     Produit
                                 </span>
-
-
                                 <span>
                                     Stock
                                 </span>
@@ -147,137 +84,54 @@ export default function Stock() {
 
                             </div>
 
-
-
-
-
                             {
-
                                 products.map((product) => (
-
-
                                     <div
-
                                         key={product.id}
-
                                         style={styles.row}
-
                                     >
-
-
-
                                         <span>
-
                                             {product.name}
-
                                         </span>
-
-
-
-
-
                                         <span
-
                                             style={
-
                                                 product.stock <= 5
-
                                                     ?
-
                                                     styles.low
-
                                                     :
-
                                                     styles.good
-
                                             }
-
                                         >
-
                                             {product.stock}
-
                                             {
-
                                                 product.stock <= 5 &&
-
                                                 " ⚠️"
-
                                             }
-
-
                                         </span>
-
-
-
-
-
-
-
                                         <input
-
                                             type="number"
-
                                             defaultValue={
                                                 product.stock
                                             }
-
                                             onBlur={(e) =>
-
                                                 updateStock(
-
                                                     product.id,
-
                                                     e.target.value
-
                                                 )
-
                                             }
-
                                             style={styles.input}
-
                                         />
-
-
-
-
                                     </div>
-
-
                                 ))
-
                             }
-
-
-
-
-
                         </div>
-
-
                     )
-
             }
-
-
-
-
         </div>
-
-
     );
-
-
 }
 
-
-
-
-
-
-
 const styles = {
-
-
     container: {
 
         minHeight: "100vh",
@@ -388,7 +242,18 @@ const styles = {
 
         fontWeight: "bold"
 
-    }
+    },
 
+    back: {
+        background: "#fff",
+        border: "1px solid #e2e8f0",
+        padding: "10px 15px",
+        borderRadius: "10px",
+        cursor: "pointer",
+        marginBottom: "20px",
+        fontWeight: "600",
+        color: "#0B5ED7",
+        display: "block",
+    },
 
 };
