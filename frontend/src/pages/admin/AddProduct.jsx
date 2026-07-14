@@ -18,7 +18,7 @@ export default function AddProduct() {
     const [images, setImages] = useState([]);
     const handleImagesChange = (e) => {
         const files = Array.from(e.target.files);
-        const navigate = useNavigate();
+
         setImages(files);
         console.log(
             "Images sélectionnées :",
@@ -75,6 +75,7 @@ export default function AddProduct() {
         e.preventDefault();
         setLoading(true);
         const imageUrls = await uploadImages();
+
 
         const { error } = await supabase
             .from("products")

@@ -31,6 +31,10 @@ export default function ProductPage() {
             console.log("PRODUIT COMPLET :", data);
             console.log("ID RECHERCHE :", id);
             console.log("DATA PRODUIT :", data);
+            console.log("IMAGE :", data.image);
+            console.log("IMAGES :", data.images);
+            console.log("PRODUIT COMPLET :", JSON.stringify(data, null, 2));
+
             console.log(
                 "ERREUR PRODUIT DETAIL :",
                 JSON.stringify(error, null, 2)
@@ -76,7 +80,8 @@ export default function ProductPage() {
                         src={
                             selectedImage ||
                             product.image ||
-                            "https://via.placeholder.com/400"
+                            product.images?.[0] ||
+                            "/no-image.png"
                         }
                         alt={product.name}
                         style={styles.image}
