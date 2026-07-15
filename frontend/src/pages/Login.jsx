@@ -174,9 +174,11 @@ export default function Login() {
         }
 
 
-
         const user = data.user;
-        console.log("USER AUTH :", user);
+
+        console.log("USER ID AUTH :", user.id);
+        console.log("USER EMAIL :", user.email);
+
 
         const { data: profile, error: profileError } =
             await supabase
@@ -186,26 +188,8 @@ export default function Login() {
                 .maybeSingle();
 
 
-
-        console.log(
-            "USER ID :",
-            user.id
-        );
-
-        console.log(
-            "USER EMAIL :",
-            user.email
-        );
-
-        console.log(
-            "PROFILE :",
-            profile
-        );
-
-        console.log(
-            "PROFILE ERROR :",
-            profileError
-        );
+        console.log("PROFILE :", profile);
+        console.log("PROFILE ERROR :", profileError);
 
 
 

@@ -154,7 +154,7 @@ export default function Menu() {
                                         to="/admin"
                                         style={styles.link}
                                     >
-                                        📊 Dashboard
+                                        📊 Tableau de Bord
                                     </Link>
 
 
